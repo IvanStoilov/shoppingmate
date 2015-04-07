@@ -1,0 +1,11 @@
+.price {
+	font-weight: bold;
+
+	span:first-child {
+		font-size: 200%;
+	}
+
+	span:last-child {
+		font-style: italic;
+	}
+}
