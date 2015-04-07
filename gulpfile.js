@@ -25,7 +25,7 @@ function watchFunc() {
 }
 
 function concatFunc() {
-	gulp.src(['app/**/*.module.js', 'app/**/*.js'])
+	gulp.src(['app/**/*.module.js', '!app/**/tests/*.js', 'app/**/*.js'])
 		.pipe(concat('all.js'))
 		.pipe(gulp.dest('js'));
 }
