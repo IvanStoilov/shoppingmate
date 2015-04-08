@@ -1,2 +1,16 @@
 @import "directives/price/price";
 @import "directives/grid-card/grid-card";
+
+$defaultPadding: 15px;
+
+.padding {
+	padding: $defaultPadding;
+}
+
+.padding-vertical {
+	padding: $defaultPadding 0;
+}
+
+.padding-horizontal {
+	padding: 0 $defaultPadding;
+}

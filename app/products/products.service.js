@@ -8,44 +8,69 @@
 		var _products = [
 			{
 				"name": "Apple",
-				"image": "img/photo1.jpg",
+				"image": "img/products/apple.jpg",
+				"category_id": 1,
 				"price": Math.round(Math.random() * 10)
 			},
 			{
 				"name": "Pear",
-				"image": "img/photo2.jpg",
+				"image": "img/products/pear.jpg",
+				"category_id": 1,
 				"price": Math.round(Math.random() * 10)
 			},
 			{
-				"name": "Irinka's",
-				"image": "img/photo3.jpg",
+				"name": "Tomatoes",
+				"image": "img/products/tomato.jpg",
+				"category_id": 2,
 				"price": Math.round(Math.random() * 10)
 			},
 			{
-				"name": "White bread",
-				"image": "img/photo3.jpg",
+				"name": "Spinach",
+				"image": "img/products/spinash.jpg",
+				"category_id": 2,
 				"price": Math.round(Math.random() * 10)
 			},
 			{
-				"name": "Fish",
-				"image": "img/photo1.jpg",
+				"name": "Beet Root",
+				"image": "img/products/beets.jpg",
+				"category_id": 2,
 				"price": Math.round(Math.random() * 10)
 			},
 			{
-				"name": "Kip filet",
-				"image": "img/photo2.jpg",
+				"name": "Lettuce",
+				"image": "img/products/lettuce.jpg",
+				"category_id": 2,
+				"price": Math.round(Math.random() * 10)
+			},
+			{
+				"name": "Cheese",
+				"image": "img/products/cheese.jpg",
+				"category_id": 3,
+				"price": Math.round(Math.random() * 10)
+			},
+			{
+				"name": "Milk",
+				"image": "img/products/milk.jpg",
+				"category_id": 3,
 				"price": Math.round(Math.random() * 10)
 			}
 		];
 
 		var service = {
-			getAll: getAll
+			getAll: getAll,
+			getByCategoryId: getByCategoryId
 		}
 
 		return service;
 
 		function getAll() {
 			return _products;
+		}
+
+		function getByCategoryId(categoryId) {
+			return _products.filter(function (product) {
+				return product.category_id == categoryId
+			});
 		}
 	}
 })();

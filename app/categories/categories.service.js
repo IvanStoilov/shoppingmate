@@ -7,16 +7,19 @@
 	{
 		var _categories = [
 			{
+				"id": 1,
 				"name": "Fruits",
-				"image": "img/photo1.jpg"
+				"image": "img/products/fruits.jpg"
 			},
 			{
+				"id": 2,
 				"name": "Vegetables",
-				"image": "img/photo2.jpg"
+				"image": "img/products/vegetables.jpg"
 			},
 			{
-				"name": "Bakery",
-				"image": "img/photo3.jpg"
+				"id": 3,
+				"name": "Dairy",
+				"image": "img/products/dairy.jpg"
 			}
 		];
 
