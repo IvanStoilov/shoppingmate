@@ -1,19 +1,10 @@
 <div class="row">
-	<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3" ng-repeat="product in products.products">
-		<div class="panel panel-default product-card">
-			<div class="">
-				<div class="image-holder" style="background-image: url('{{ product.image }}')"></div>
-
-				<div class="row">
-					<div class="col-xs-7">
-						<h5 class="title">{{ product.name }}</h5>
-					</div>
-					<div class="price col-xs-5">
-						<sm-price price="product.price"></sm-price>
-					</div>
-				</div>
-				<a class="button-add-to-cart" href="javascript://"><i class="glyphicon-plus"></i> Add to cart</a>
-			</div>
-		</div>
-	</div>
+	<sm-grid-card
+			ng-repeat="product in products.products"
+			image="product.image"
+			title="product.name"
+			price="product.price"
+			button-text="'+ Add to basket'"
+			on-button-click="products.addToBasket">
+	</sm-grid-card>
 </div>

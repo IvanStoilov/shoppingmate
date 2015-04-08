@@ -1,0 +1,12 @@
+Status: {{ categories.status }}
+
+<div class="row">
+	<sm-grid-card
+			ng-repeat="category in categories.categories"
+			image="category.image"
+			title="category.name"
+			price="false"
+			button-text="'Open'"
+			on-button-click="categories.openCategory">
+	</sm-grid-card>
+</div>

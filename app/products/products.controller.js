@@ -11,5 +11,10 @@
 		var vm = this;
 
 		vm.products = ProductsService.getAll();
+		vm.addToBasket = addToBasket;
+
+		function addToBasket() {
+			
+		}
 	};
 })();

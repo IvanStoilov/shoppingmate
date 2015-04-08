@@ -10,10 +10,15 @@
 	function config($routeProvider) {
 
 		$routeProvider
-			.when('/products', {
+			.when('/category', {
 				templateUrl: "app/products/products.html",
 				controller: 'ProductsController',
 				controllerAs: 'products'
+			})
+			.when('/products', {
+				templateUrl: "app/categories/categories.html",
+				controller: 'CategoriesController',
+				controllerAs: 'categories'
 			})
 			.otherwise({
 				redirectTo: '/products'

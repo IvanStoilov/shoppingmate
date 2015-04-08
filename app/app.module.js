@@ -1,5 +1,6 @@
 angular.module('app', [
 	'ngRoute',
 	'app.main-menu',
-	'app.products'
+	'app.products',
+	'app.categories'
 ]);
