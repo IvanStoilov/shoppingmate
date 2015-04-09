@@ -1,1 +1,4 @@
-angular.module('app.categories', ['app.shared']);
+angular.module('app.categories', [
+	'app.shared',
+	'app.basket'
+]);

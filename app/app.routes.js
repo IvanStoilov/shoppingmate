@@ -5,24 +5,48 @@
 		.module('app')
 		.config(config);
 
-	config.$inject = ['$routeProvider'];
+	config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-	function config($routeProvider) {
+	function config($stateProvider, $urlRouterProvider) {
 
-		$routeProvider
-			.when('/category/:categoryId', {
-				templateUrl: "app/products/products.html",
-				controller: 'ProductsController',
-				controllerAs: 'products'
+		$stateProvider
+			.state('main', {
+				url: '/',
+				templateUrl: 'app/layout/default.html',
+				abstract: true
 			})
-			.when('/', {
-				templateUrl: "app/categories/categories.html",
-				controller: 'CategoriesController',
-				controllerAs: 'categories'
+			.state('main.products', {
+				url: 'category/:categoryId',
+				views: {
+					content: {
+						templateUrl: 'app/products/products.html',
+						controller: 'ProductsController',
+						controllerAs: 'products'
+					},
+					sidebar: {
+						templateUrl: "app/basket/basket.html",
+						controller: 'BasketController',
+						controllerAs: 'basket'
+					}
+				}
 			})
-			.otherwise({
-				redirectTo: '/'
+			.state('main.categories', {
+				url: 'categories',
+				views: {
+					content: {
+						templateUrl: "app/categories/categories.html",
+						controller: 'CategoriesController',
+						controllerAs: 'categories'
+					},
+					sidebar: {
+						templateUrl: "app/basket/basket.html",
+						controller: 'BasketController',
+						controllerAs: 'basket'
+					}
+				}
 			});
+
+		$urlRouterProvider.otherwise("/categories");
 	}
 
 

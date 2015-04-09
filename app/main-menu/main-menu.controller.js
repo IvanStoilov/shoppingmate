@@ -5,9 +5,9 @@
 		.module('app.main-menu')
 		.controller('MainMenuController', MainMenuController);
 
-	MainMenuController.$inject = ['$route'];
+	MainMenuController.$inject = [];
 
-	function MainMenuController($route) {
+	function MainMenuController() {
 		var vm = this;
 		vm.items = {
 			"choose-products": 1,
@@ -17,8 +17,6 @@
 
 		function activate()
 		{
-			// reload because the ui-view is included with ng-include
-			$route.reload();
 		}
 	}
 })();

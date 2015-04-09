@@ -23,12 +23,13 @@
 	function PriceDirectiveController()
 	{
 		var _defaultSign = '€';
-		var _cent = this.price - Math.ceil(this.price);
+		var _whole = Math.floor(this.price);
+		var _cent = Math.round((this.price - _whole) * 100);
 		var vm = this;
 
 		vm.signFront = _defaultSign;
 		vm.signBack = '';
-		vm.whole = Math.ceil(this.price);
+		vm.whole = _whole;
 		vm.cent = (_cent < 10 ? '0' + _cent : _cent);
 	}
 })();

@@ -11,10 +11,5 @@
 		var vm = this;
 
 		vm.categories = CategoriesService.getAll();
-		vm.openCategory = openCategory;
-
-		function openCategory(category)
-		{
-		}
 	};
 })();

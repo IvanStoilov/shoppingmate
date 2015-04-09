@@ -5,12 +5,12 @@
 		.module('app.products')
 		.controller('ProductsController', ProductsController);
 
-	ProductsController.$inject = ['$routeParams', 'ProductsService'];
+	ProductsController.$inject = ['$stateParams', 'ProductsService'];
 
-	function ProductsController($routeParams, ProductsService) {
+	function ProductsController($stateParams, ProductsService) {
 		var vm = this;
 
-		vm.products = ProductsService.getByCategoryId($routeParams.categoryId);
+		vm.products = ProductsService.getByCategoryId($stateParams.categoryId);
 		vm.addToBasket = addToBasket;
 
 		function addToBasket() {
