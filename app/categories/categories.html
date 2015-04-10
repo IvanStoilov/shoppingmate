@@ -1,11 +1,11 @@
 <div class="row">
 	<sm-grid-card
 			ng-repeat="category in categories.categories"
-			image="category.image"
-			title="category.name"
-			price="false"
-			button-text="'Open'"
-			button-link="'#/category/' + category.id"
-			image-link="'#/category/' + category.id">
+			image="{{ category.image }}"
+			title="{{ category.name }}"
+			price="{{ false }}"
+			button-text="Open"
+			button-link="#/category/{{ category.id }}"
+			image-link="#/category/{{ category.id }}">
 	</sm-grid-card>
 </div>

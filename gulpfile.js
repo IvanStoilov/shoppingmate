@@ -3,7 +3,7 @@ var sass = require('gulp-sass');
 var watch = require('gulp-watch');
 var concat = require('gulp-concat');
 var ngTemplate = require('gulp-ng-template');
-var clean = require('gulp-clean');
+var rimraf = require('rimraf');
 
 gulp.task('default', function() {
 	// place code for your default task here
@@ -51,7 +51,6 @@ function concatFunc() {
 		.pipe(gulp.dest('js'));
 }
 
-function cleanFunc() {
-	return gulp.src('js/*', {read: false})
-		.pipe(clean());
+function cleanFunc(cb) {
+	rimraf('./js', cb);
 }

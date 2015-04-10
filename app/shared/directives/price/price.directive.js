@@ -10,26 +10,26 @@
 			restrict: 'EA',
 			templateUrl: "app/shared/directives/price/price.directive.html",
 			scope: {
-				price: '='
+				price: '@'
 			},
-			controller: PriceDirectiveController,
-			controllerAs: 'price',
-			bindToController: true
+			link: link
 		};
 	}
 
-	PriceDirectiveController.$inject = [];
+	function link($scope, element, attributes) {
+		$scope.$watch('price', _calculateParts);
 
-	function PriceDirectiveController()
-	{
-		var _defaultSign = '€';
-		var _whole = Math.floor(this.price);
-		var _cent = Math.round((this.price - _whole) * 100);
-		var vm = this;
+		function _calculateParts(price) {
+			var _defaultSign = '€';
+			var _whole = Math.floor(price);
+			var _cent = Math.round((price - _whole) * 100);
 
-		vm.signFront = _defaultSign;
-		vm.signBack = '';
-		vm.whole = _whole;
-		vm.cent = (_cent < 10 ? '0' + _cent : _cent);
+			$scope.parts = {
+				signFront: _defaultSign,
+				signBack: '',
+				whole: _whole,
+				cent: (_cent < 10 ? '0' + _cent : _cent)
+			};
+		}
 	}
 })();

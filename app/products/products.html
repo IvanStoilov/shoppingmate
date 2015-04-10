@@ -7,12 +7,11 @@
 	<div class="row">
 		<sm-grid-card
 				ng-repeat="product in products.products"
-				image="product.image"
-				title="product.name"
-				price="product.price"
-				button-text="'+ Add to basket'"
-				on-button-click="products.addToBasket"
-				button-callback-subject="product">
+				image="{{ product.image }}"
+				title="{{ product.name }}"
+				price="{{ product.price }}"
+				button-text="+ Add to basket"
+				on-button-click="products.addToBasket(product)">
 		</sm-grid-card>
 	</div>
 </div>

@@ -10,14 +10,13 @@
 			restrict: 'E',
 			templateUrl: "app/shared/directives/grid-card/grid-card.directive.html",
 			scope: {
-				image: '=',
-				title: '=',
-				price: '=',
-				buttonText: '=',
-				buttonLink: '=',
-				imageLink: '=',
-				onButtonClick: '=',
-				buttonCallbackSubject: '='
+				image: '@',
+				title: '@',
+				price: '@',
+				buttonText: '@',
+				buttonLink: '@',
+				imageLink: '@',
+				onButtonClick: '&'
 			},
 			require: 'smPrice',
 			controller: GridCardDirectiveController,

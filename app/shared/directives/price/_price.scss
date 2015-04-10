@@ -1,11 +1,15 @@
 .sm-price {
 	font-weight: bold;
 
-	span:first-child {
-		font-size: 200%;
+	.sign-front {
+		padding-right: 2px;
+		font-size: 1.15em;
 	}
 
-	span:last-child {
-		font-style: italic;
+	.whole {
+		font-size: 1.33em;
+	}
+
+	.cent {
 	}
 }

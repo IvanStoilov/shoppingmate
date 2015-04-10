@@ -8,8 +8,21 @@
 	.title {
 		height: 32px;
 		line-height: 32px;
+		padding-left: 20px;
 	}
 	.quantity {
 		font-size: 1.25em;
+	}
+
+	.bottom-line {
+		margin-top: 10px;
+		padding-top: 10px;
+		border-top: 1px solid #222222;
+
+		.total-sum {
+			text-align: right;
+			font-weight: bold;
+			font-size: 1.5em;
+		}
 	}
 }

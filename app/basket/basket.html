@@ -3,14 +3,22 @@
 		Your shopping list is empty.
 	</div>
 	<div class="row" ng-repeat="product in basket.products">
-		<div class="icon col-xs-2">
-			<img height="32" src="{{ product.image }}" alt=""/>
+		<div class="icon col-xs-1">
+			<img height="32" ng-src="{{ product.image }}" alt=""/>
 		</div>
-		<div class="title col-xs-5 col-sm-6 col-md-8">
+		<div class="title col-xs-6 col-sm-6 col-md-8">
 			{{ product.name }}
 		</div>
 		<div class="quantity col-xs-4 col-sm-4 col-md-2">
 			{{ product.quantity }}{{ product.unit }}
+		</div>
+	</div>
+	<div ng-show="basket.products.length > 0" class="bottom-line row">
+		<div class="col-xs-6">
+			Total:
+		</div>
+		<div class="total-sum col-xs-6">
+			<sm-price price="{{ basket.totalPrice }}"></sm-price>
 		</div>
 	</div>
 </div>

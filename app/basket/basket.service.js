@@ -7,10 +7,12 @@
 	{
 		var _products = [
 		];
+		var _totalPrice = 0;
 
 		var service = {
 			getSavedProducts: getSavedProducts,
-			addToBasket: addToBasket
+			addToBasket: addToBasket,
+			getTotalPrice: getTotalPrice
 		};
 
 		return service;
@@ -19,8 +21,8 @@
 			return _products;
 		}
 
-		function addToBasket(newProduct)
-		{
+		function addToBasket(newProduct) {
+			// check if the product is already in the basket
 			var existingIndex = _.findIndex(_products, function (product) {
 				return product.id === newProduct.id;
 			});
@@ -32,6 +34,12 @@
 				// new product is not in the basket yet - add it
 				_products.push(_.clone(newProduct));
 			}
+
+			_totalPrice += newProduct.price;
+		}
+
+		function getTotalPrice() {
+			return _totalPrice;
 		}
 	}
 })();
