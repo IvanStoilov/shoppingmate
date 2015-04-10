@@ -15,7 +15,7 @@ describe('ProductsController', function(){
 		ctrl = $controller('ProductsController', {
 			"$scope": scope,
 			"ProductsService": ProductsService,
-			"$routeParams": {categoryId: 2}
+			"$stateParams": {categoryId: 2}
 		});
 	}));
 

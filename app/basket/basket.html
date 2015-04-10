@@ -1,8 +1,16 @@
-<div>
-	<h3>Shopping list:</h3>
-	<ul>
-		<li ng-repeat="product in products">
+<div class="basket">
+	<div ng-hide="basket.products.length > 0">
+		Your shopping list is empty.
+	</div>
+	<div class="row" ng-repeat="product in basket.products">
+		<div class="icon col-xs-2">
+			<img height="32" src="{{ product.image }}" alt=""/>
+		</div>
+		<div class="title col-xs-5 col-sm-6 col-md-8">
 			{{ product.name }}
-		</li>
-	</ul>
+		</div>
+		<div class="quantity col-xs-4 col-sm-4 col-md-2">
+			{{ product.quantity }}{{ product.unit }}
+		</div>
+	</div>
 </div>

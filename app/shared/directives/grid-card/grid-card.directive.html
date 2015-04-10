@@ -1,7 +1,7 @@
 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
 	<div class="panel panel-default grid-card">
 		<div class="">
-			<a ng-href="{{ card.imageLink }}">
+			<a ng-href="{{ card.imageLink }}" ng-click="card.onButtonClick(card.buttonCallbackSubject)">
 				<div class="image-holder" style="background-image: url('{{ card.image }}')"></div>
 			</a>
 
@@ -13,7 +13,7 @@
 					<sm-price price="card.price"></sm-price>
 				</div>
 			</div>
-			<a ng-show="card.buttonText" class="button-bottom" href="javascript://" ng-href="{{card.buttonLink}}">{{ card.buttonText }}</a>
+			<a ng-show="card.buttonText" class="button-bottom" ng-href="{{card.buttonLink}}" ng-click="card.onButtonClick(card.buttonCallbackSubject)">{{ card.buttonText }}</a>
 		</div>
 	</div>
 </div>

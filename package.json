@@ -17,5 +17,8 @@
     "karma-coverage": "~0.2.7",
     "karma-sinon-chai": "~0.3.0",
     "gulp-ng-template": "~0.2.1"
+  },
+  "dependencies": {
+    "gulp-clean": "~0.3.1"
   }
 }

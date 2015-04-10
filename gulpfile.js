@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var watch = require('gulp-watch');
 var concat = require('gulp-concat');
 var ngTemplate = require('gulp-ng-template');
+var clean = require('gulp-clean');
 
 gulp.task('default', function() {
 	// place code for your default task here
@@ -10,8 +11,9 @@ gulp.task('default', function() {
 
 gulp.task('sass', sassFunc);
 gulp.task('watch', watchFunc);
-gulp.task('templates', templatesFunc)
+gulp.task('templates', ['clean'], templatesFunc)
 gulp.task('concat', ['templates'], concatFunc);
+gulp.task('clean', cleanFunc);
 
 function sassFunc() {
 	gulp.src('app/**/*.scss')
@@ -23,13 +25,17 @@ function watchFunc() {
 	sassFunc();
 	concatFunc();
 	templatesFunc();
-	watch('app/**/*.scss', sassFunc);
-	watch('app/**/*.js', concatFunc);
-	watch('app/**/*.html', templatesFunc);
+	watch('app/**/*.scss', function () {
+		gulp.start('sass');
+	});
+
+	watch(['app/**/*.js', 'app/**/*.html'], function () {
+		gulp.start('concat');
+	});
 }
 
 function templatesFunc() {
-	gulp.src('app/**/*.html')
+	return gulp.src('app/**/*.html')
 		.pipe(ngTemplate({
 			moduleName: 'app.templates',
 			standalone: true,
@@ -40,7 +46,12 @@ function templatesFunc() {
 }
 
 function concatFunc() {
-	gulp.src(['js/templates.js', 'app/**/*.module.js', '!app/**/tests/*.js', 'app/**/*.js'])
+	return gulp.src(['js/templates.js', 'app/**/*.module.js', '!app/**/tests/*.js', 'app/**/*.js'])
 		.pipe(concat('all.js'))
 		.pipe(gulp.dest('js'));
+}
+
+function cleanFunc() {
+	return gulp.src('js/*', {read: false})
+		.pipe(clean());
 }

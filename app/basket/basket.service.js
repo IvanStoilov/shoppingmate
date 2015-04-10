@@ -6,28 +6,11 @@
 	function BasketService()
 	{
 		var _products = [
-			{
-				"name": "Apple",
-				"image": "img/products/apple.jpg",
-				"category_id": 1,
-				"price": Math.random() * 10
-			},
-			{
-				"name": "Pear",
-				"image": "img/products/pear.jpg",
-				"category_id": 1,
-				"price": (Math.random() * 10)
-			},
-			{
-				"name": "Tomatoes",
-				"image": "img/products/tomato.jpg",
-				"category_id": 2,
-				"price": (Math.random() * 10)
-			}
 		];
 
 		var service = {
-			getSavedProducts: getSavedProducts
+			getSavedProducts: getSavedProducts,
+			addToBasket: addToBasket
 		};
 
 		return service;
@@ -35,5 +18,20 @@
 		function getSavedProducts() {
 			return _products;
 		}
+
+		function addToBasket(newProduct)
+		{
+			var existingIndex = _.findIndex(_products, function (product) {
+				return product.id === newProduct.id;
+			});
+
+			if (existingIndex !== -1) {
+				// new product is already in the list - increment its quantity
+				_products[existingIndex].quantity += newProduct.quantity;
+			} else {
+				// new product is not in the basket yet - add it
+				_products.push(_.clone(newProduct));
+			}
+		}
 	}
-});
+})();

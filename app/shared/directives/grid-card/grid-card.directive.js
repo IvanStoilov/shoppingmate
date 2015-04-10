@@ -15,7 +15,9 @@
 				price: '=',
 				buttonText: '=',
 				buttonLink: '=',
-				imageLink: '='
+				imageLink: '=',
+				onButtonClick: '=',
+				buttonCallbackSubject: '='
 			},
 			require: 'smPrice',
 			controller: GridCardDirectiveController,
