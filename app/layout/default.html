@@ -1,9 +1,12 @@
 <div class="container">
 	<nav class="navbar navbar-default" ng-include="'app/main-menu/main-menu.html'"></nav>
 	<div class="row">
-		<div class="col-xs-8" ui-view="content">
+		<div class="col-sm-8 col-xs-12" ng-class="{'hidden-xs': isBasketOpen}" ui-view="content">
 		</div>
-		<div class="col-xs-4" ui-view="sidebar">
+		<div class="col-sm-4 col-xs-12" ng-class="{'hidden-xs': !isBasketOpen}" ui-view="sidebar">
 		</div>
+		<a ng-click="isBasketOpen = !isBasketOpen" class="visible-xs button-shopping-cart">
+			<i class="glyphicon glyphicon-list" ng-class="{'glyphicon-shopping-cart': !isBasketOpen}"></i>
+		</a>
 	</div>
 </div>

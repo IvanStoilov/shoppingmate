@@ -12,7 +12,8 @@
 		var service = {
 			getSavedProducts: getSavedProducts,
 			addToBasket: addToBasket,
-			getTotalPrice: getTotalPrice
+			getTotalPrice: getTotalPrice,
+			remove: remove
 		};
 
 		return service;
@@ -40,6 +41,24 @@
 
 		function getTotalPrice() {
 			return _totalPrice;
+		}
+
+		function remove(productToRemove) {
+			var existingIndex = _.findIndex(_products, function (product) {
+				return product.id === productToRemove.id;
+			});
+
+			if (existingIndex !== -1)
+			{
+				_products[existingIndex].quantity--;
+
+				if (_products[existingIndex].quantity === 0)
+				{
+					_products.splice(existingIndex, 1);
+				}
+
+				_totalPrice -= productToRemove.price;
+			}
 		}
 	}
 })();

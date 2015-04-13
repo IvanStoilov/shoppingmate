@@ -1,21 +1,31 @@
 .basket {
-	.icon {
-		img {
-			height: 32px;
-			max-width: 32px;
+	padding: 10px;
+
+	.basket-item {
+		border-bottom: 1px solid #DDD;
+		padding: 8px;
+
+		&.last {
+			border-bottom-style: none;
 		}
-	}
-	.title {
-		height: 32px;
-		line-height: 32px;
-		padding-left: 20px;
-	}
-	.quantity {
-		font-size: 1.25em;
+
+		.icon {
+			img {
+				height: 32px;
+				max-width: 32px;
+			}
+		}
+
+		.title {
+			padding-left: 20px;
+		}
+
+		.quantity {
+			font-size: 1.25em;
+		}
 	}
 
 	.bottom-line {
-		margin-top: 10px;
 		padding-top: 10px;
 		border-top: 1px solid #222222;
 

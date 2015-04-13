@@ -10,8 +10,8 @@
 	function BasketController($scope, BasketService) {
 		var vm = this;
 
-		vm.products = BasketService.getSavedProducts();
 		vm.totalPrice = 0;
+		vm.remove = remove;
 
 		activate();
 
@@ -19,6 +19,14 @@
 			$scope.$watch(BasketService.getTotalPrice, function (value) {
 				vm.totalPrice = value;
 			});
+
+			$scope.$watch(BasketService.getSavedProducts, function (products) {
+				vm.products = products;
+			});
+		}
+
+		function remove(product) {
+			BasketService.remove(product);
 		}
 	}
 })();
