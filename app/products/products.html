@@ -1,8 +1,6 @@
 <div>
 	<div class="row padding-vertical">
-		<div class="col-xs-3">
-			<a class="btn btn-primary" ng-href="#/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
-		</div>
+		<sm-breadcrumb items="products.breadcrumbs"></sm-breadcrumb>
 	</div>
 	<div class="row">
 		<sm-grid-card
@@ -11,7 +9,8 @@
 				title="{{ product.name }}"
 				price="{{ product.price }}"
 				button-text="+ Add to basket"
-				on-button-click="products.addToBasket(product)">
+				on-button-click="products.addToBasket(product)"
+				extra-class="product-card">
 		</sm-grid-card>
 	</div>
 </div>

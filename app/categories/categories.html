@@ -1,11 +1,16 @@
-<div class="row">
-	<sm-grid-card
+<div>
+	<div class="row padding-vertical">
+		<sm-breadcrumb items="categories.breadcrumbs"></sm-breadcrumb>
+	</div>
+	<div class="row">
+		<sm-grid-card
 			ng-repeat="category in categories.categories"
 			image="{{ category.image }}"
 			title="{{ category.name }}"
-			price="{{ false }}"
+			price="0"
 			button-text="Open"
-			button-link="#/category/{{ category.id }}"
-			image-link="#/category/{{ category.id }}">
-	</sm-grid-card>
+			button-link="#/{{ categories.selectedCategory ? 'products' : 'categories' }}/{{ category.id }}"
+			image-link="#/{{ categories.selectedCategory ? 'products' : 'categories' }}/{{ category.id }}">
+		</sm-grid-card>
+	</div>
 </div>

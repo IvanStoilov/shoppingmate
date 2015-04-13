@@ -13,4 +13,12 @@ describe('CategoriesController', function(){
 
 		ctrl = $controller('CategoriesController', {$scope: scope, "CategoriesService": CategoriesService});
 	}));
+
+	it('should fetch all categories', function () {
+		expect(CategoriesService.getAll.callCount).to.equal(1);
+	});
+
+	it('should assign products scope param', function () {
+		expect(ctrl).to.include.keys('categories');
+	});
 })

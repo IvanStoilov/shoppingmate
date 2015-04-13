@@ -1,4 +1,6 @@
 (function () {
+	'use strict';
+
 	angular
 		.module('app.shared')
 		.directive('smGridCard', SmGridCardDirective);
@@ -8,7 +10,7 @@
 	function SmGridCardDirective() {
 		return {
 			restrict: 'E',
-			templateUrl: "app/shared/directives/grid-card/grid-card.directive.html",
+			templateUrl: "app/shared/directives/grid-card/grid-card.html",
 			scope: {
 				image: '@',
 				title: '@',
@@ -16,7 +18,8 @@
 				buttonText: '@',
 				buttonLink: '@',
 				imageLink: '@',
-				onButtonClick: '&'
+				onButtonClick: '&',
+				extraClass: '@'
 			},
 			require: 'smPrice',
 			controller: GridCardDirectiveController,

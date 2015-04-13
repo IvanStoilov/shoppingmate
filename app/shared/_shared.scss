@@ -14,3 +14,14 @@ $defaultPadding: 15px;
 .padding-horizontal {
 	padding: 0 $defaultPadding;
 }
+
+.no-link {
+	color: #222222;
+	outline: none;
+	&:hover,
+	&:focus,
+	&:active {
+		text-decoration: none;
+		color: #222222;
+	}
+}

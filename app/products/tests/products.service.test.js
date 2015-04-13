@@ -11,6 +11,12 @@ describe('ProductsSerivce', function(){
 		it('should return 6 entries', function(){
 			expect(ProductsService.getAll()).to.have.length.at.least(1);
 		});
-	})
+	});
+
+	describe('#getByCategoryId()', function(){
+		it('should return 6 entries', function(){
+			expect(ProductsService.getByCategoryId(2)).to.have.length.at.least(1);
+		});
+	});
 });
 

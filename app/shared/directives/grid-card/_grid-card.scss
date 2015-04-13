@@ -1,24 +1,41 @@
 .grid-card {
 	.image-holder {
+		position: relative;
 		width: 100%;
 		height: 168px;
 		border-radius: 4px 4px 0 0;
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: 50% 50%;
+
+		.image-overlay {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			border-bottom: 1px solid #ccc;
+
+			.price {
+				position: absolute;
+				bottom: 0px;
+				right: 0px;
+				text-align: right;
+				padding: 0 10px;
+				background-color: #FFFFFF;
+				border-radius: 10px 0 0 0;
+				border-top: 1px solid #ccc;
+				border-left: 1px solid #ccc;
+			}
+		}
 	}
 
 	.title {
-		padding: 0 5px 0;
-	}
-
-	.title-center {
+		padding: 0 10px;
 		text-align: center;
-	}
-
-	.price {
-		text-align: right;
-		padding-right: 18px;
+		height: 4em;
+		overflow: hidden;
+		vertical-align: middle;
 	}
 
 	.button-bottom {
@@ -27,6 +44,15 @@
 		padding: 7px 20px;
 		background-color: #eeeeee;
 		border-radius: 0 0 4px 4px;
+	}
+}
+
+.product-card {
+	.image-overlay {
+		&:hover {
+			background: url('/img/card-plus.png') no-repeat center center rgba(0,0,0,0.55);
+			cursor: pointer;
+		}
 	}
 }
 

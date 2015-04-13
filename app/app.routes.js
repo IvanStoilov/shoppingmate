@@ -16,7 +16,7 @@
 				abstract: true
 			})
 			.state('main.products', {
-				url: 'category/:categoryId',
+				url: 'products/:categoryId',
 				views: {
 					content: {
 						templateUrl: 'app/products/products.html',
@@ -32,6 +32,21 @@
 			})
 			.state('main.categories', {
 				url: 'categories',
+				views: {
+					content: {
+						templateUrl: "app/categories/categories.html",
+						controller: 'CategoriesController',
+						controllerAs: 'categories'
+					},
+					sidebar: {
+						templateUrl: "app/basket/basket.html",
+						controller: 'BasketController',
+						controllerAs: 'basket'
+					}
+				}
+			})
+			.state('main.subcategories', {
+				url: 'categories/:selectedCategoryId',
 				views: {
 					content: {
 						templateUrl: "app/categories/categories.html",

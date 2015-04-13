@@ -7,7 +7,7 @@ describe("smPrice Directive", function () {
 	var innerScope;
 
 	beforeEach(inject(function($rootScope, $compile) {
-		element = angular.element('<sm-price price="price"></sm-price>');
+		element = angular.element('<sm-price price="{{ price }}"></sm-price>');
 
 		outerScope = $rootScope;
 		outerScope.price = 3.05;
@@ -24,11 +24,11 @@ describe("smPrice Directive", function () {
 		});
 
 		it('should have a euro value of 3', function () {
-			expect(element[0].children[0].children[0].innerHTML).to.contain(3);
+			expect(element[0].children[0].children[1].innerHTML).to.contain(3);
 		});
 
 		it('should have a cent value of 05', function () {
-			expect(element[0].children[0].children[1].innerHTML).to.equal('05');
+			expect(element[0].children[0].children[2].innerHTML).to.equal('05');
 		})
 	});
 });
