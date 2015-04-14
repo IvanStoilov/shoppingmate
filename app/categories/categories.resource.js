@@ -3,11 +3,11 @@
 		.module('app.categories')
 		.service('CategoriesResource', CategoriesResource);
 
-	CategoriesResource.$inject = ['$http'];
+	CategoriesResource.$inject = ['$http', 'Config'];
 
-	function CategoriesResource($http)
+	function CategoriesResource($http, Config)
 	{
-		var baseUrl = 'http://127.0.0.1:3000/api/categories';
+		var baseUrl = Config.apiRootUrl + '/categories';
 
 		var service = {
 			getAll: getAll

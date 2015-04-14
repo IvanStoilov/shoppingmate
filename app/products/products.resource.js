@@ -3,11 +3,11 @@
 		.module('app.products')
 		.service('ProductsResource', ProductsResource);
 
-	ProductsResource.$inject = ['$http'];
+	ProductsResource.$inject = ['$http', 'Config'];
 
-	function ProductsResource($http)
+	function ProductsResource($http, Config)
 	{
-		var baseUrl = 'http://127.0.0.1:3000/api/categories/';
+		var baseUrl = Config.apiRootUrl + '/categories/';
 
 		var service = {
 			getByCategoryId: getByCategoryId

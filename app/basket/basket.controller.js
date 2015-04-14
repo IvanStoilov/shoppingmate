@@ -11,7 +11,7 @@
 		var vm = this;
 
 		vm.totalPrice = 0;
-		vm.remove = remove;
+		vm.remove = BasketService.removeProduct;
 
 		activate();
 
@@ -23,10 +23,6 @@
 			$scope.$watch(BasketService.getSavedProducts, function (products) {
 				vm.products = products;
 			});
-		}
-
-		function remove(product) {
-			BasketService.remove(product);
 		}
 	}
 })();
