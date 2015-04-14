@@ -24,6 +24,8 @@
 			$scope.$watch(BasketService.getSavedProducts, function (products) {
 				vm.products = products;
 			});
+
+			BasketService.reloadBasket();
 		}
 	}
 })();

@@ -10,7 +10,8 @@
 		var resource = {
 			addProduct: addProduct,
 			removeProduct: removeProduct,
-			setQuantity: setQuantity
+			setQuantity: setQuantity,
+			getBasket: getBasket
 		};
 
 		return resource;
@@ -25,6 +26,13 @@
 
 		function setQuantity(productId, quantity) {
 			return $http.put(Config.apiRootUrl + '/basket/' + productId, {quantity: quantity});
+		}
+
+		function getBasket(userId) {
+			var filter = {"include": ["product"]};
+			var filterString = JSON.stringify(filter);
+
+			return $http.get(Config.apiRootUrl + '/users/' + userId + '/basket?filter=' + encodeURIComponent(filterString));
 		}
 	}
 })();

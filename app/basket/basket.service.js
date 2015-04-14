@@ -14,7 +14,8 @@
 			getSavedProducts: getSavedProducts,
 			addProduct: addProduct,
 			getTotalPrice: getTotalPrice,
-			removeProduct: removeProduct
+			removeProduct: removeProduct,
+			reloadBasket: reloadBasket
 		};
 
 		return service;
@@ -97,6 +98,11 @@
 
 		}
 
+		function reloadBasket() {
+			var userId = 1;
+			BasketResource.getBasket(userId).success(_adaptBasket);
+		}
+
 		function _getQuantityInBasket(productId) {
 			if (_basket[productId]) {
 				return _basket[productId].quantity;
@@ -104,5 +110,15 @@
 
 			return 0;
 		}
+
+		function _adaptBasket(products) {
+			_.each (products, function (item) {
+				_basket[item.product_id] = {
+					product: item.product,
+					quantity: item.quantity
+				};
+			});
+		}
+
 	}
 })();
