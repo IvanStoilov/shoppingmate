@@ -1,7 +1,7 @@
 <div class="basket">
-	<div class="row" ng-hide="basket.products.length > 0">
-		Your shopping list is empty.
-	</div>
+	<h3>
+		Shopping List
+	</h3>
 	<div class="row basket-item" ng-class="{'last': $last}" ng-repeat="entry in basket.products track by $index">
 		<div class="icon col-xs-1">
 			<img height="32" ng-src="{{ entry.product.image }}" alt=""/>
@@ -9,11 +9,14 @@
 		<div class="title col-xs-5 col-sm-5 col-md-7">
 			{{ entry.product.name }}
 		</div>
-		<div class="quantity col-xs-3 col-sm-3 col-md-2">
+		<div class="quantity col-xs-2 col-sm-2 col-md-1">
 			{{ entry.quantity }}{{ entry.product.unit }}
 		</div>
-		<div class="quantity col-xs-1 col-sm-1 col-md-1">
-			<a href="javascript://" ng-click="basket.remove(entry.product)"><i class="glyphicon glyphicon-remove"></i></a>
+		<div class="col-xs-1 col-sm-1 col-md-1">
+			<a href="javascript://" ng-click="basket.removeProduct(entry.product)"><i class="glyphicon glyphicon-minus"></i></a>
+		</div>
+		<div class="col-xs-1 col-sm-1 col-md-1">
+			<a href="javascript://" ng-click="basket.addProduct(entry.product)"><i class="glyphicon glyphicon-plus"></i></a>
 		</div>
 	</div>
 	<div ng-show="basket.products.length > 0" class="row bottom-line">

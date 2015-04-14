@@ -10,6 +10,11 @@
 	function ProductsController($stateParams, ProductsService, BasketService, CategoriesService) {
 		var vm = this;
 
+		vm.addProduct = BasketService.addProduct;
+		vm.products = [];
+		vm.breadcrumbs = [];
+		vm.selectedCategory = false;
+
 		var selectedCategoryId = parseInt($stateParams.categoryId);
 
 		ProductsService.getByCategoryId(selectedCategoryId).then(function (products) {
@@ -27,10 +32,5 @@
 				});
 			});
 		});
-		vm.addToBasket = addToBasket;
-
-		function addToBasket(product) {
-			BasketService.addToBasket(product);
-		}
 	};
 })();

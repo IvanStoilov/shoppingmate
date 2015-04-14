@@ -11,7 +11,8 @@
 		var vm = this;
 
 		vm.totalPrice = 0;
-		vm.remove = BasketService.removeProduct;
+		vm.removeProduct = BasketService.removeProduct;
+		vm.addProduct = BasketService.addProduct;
 
 		activate();
 

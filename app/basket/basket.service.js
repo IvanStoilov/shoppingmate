@@ -12,7 +12,7 @@
 
 		var service = {
 			getSavedProducts: getSavedProducts,
-			addToBasket: addToBasket,
+			addProduct: addProduct,
 			getTotalPrice: getTotalPrice,
 			removeProduct: removeProduct
 		};
@@ -23,7 +23,7 @@
 			return _basket;
 		}
 
-		function addToBasket(product) {
+		function addProduct(product) {
 			var quantityInBasket = _getQuantityInBasket(product.id);
 
 			var userId = 1;

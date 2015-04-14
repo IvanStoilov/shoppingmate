@@ -1,3 +1,8 @@
 <div class="breadcrumb clearfix">
-	<a ng-class="{'no-link': !item.sref}" ng-repeat="item in breadcrumb.items" class="pull-left" ui-sref="{{ item.sref }}"> {{ item.text }} <i ng-hide="$last" class="glyphicon glyphicon-chevron-right"></i> </a>
+	<span ng-repeat="item in breadcrumb.items">
+		<a ng-class="{'no-link': !item.sref}" ui-sref="{{ item.sref }}"> {{ item.text }}</a>
+		<span class="padding-horizontal">
+			<i ng-hide="$last" class="glyphicon glyphicon-chevron-right"></i>
+		</span>
+	</span>
 </div>
