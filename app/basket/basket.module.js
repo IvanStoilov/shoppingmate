@@ -1,1 +1,3 @@
-angular.module('app.basket', []);
+angular.module('app.basket', [
+	'app.config'
+]);

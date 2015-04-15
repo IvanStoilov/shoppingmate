@@ -22,9 +22,6 @@ function sassFunc() {
 }
 
 function watchFunc() {
-	sassFunc();
-	concatFunc();
-	templatesFunc();
 	watch('app/**/*.scss', function () {
 		gulp.start('sass');
 	});
@@ -46,7 +43,12 @@ function templatesFunc() {
 }
 
 function concatFunc() {
-	return gulp.src(['js/templates.js', 'app/**/*.module.js', '!app/**/tests/*.js', 'app/**/*.js'])
+	return gulp.src([
+			'js/templates.js',
+			'app/**/*.module.js',
+			'app/config/develop.js',
+			'!app/**/tests/*.js',
+			'app/**/*.js'])
 		.pipe(concat('all.js'))
 		.pipe(gulp.dest('js'));
 }

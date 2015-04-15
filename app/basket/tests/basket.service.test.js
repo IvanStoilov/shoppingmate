@@ -38,7 +38,7 @@ describe('BasketSerivce', function(){
 
 	describe("after adding one product", function () {
 		beforeEach(function () {
-			BasketService.addToBasket(product1);
+			BasketService.addProduct(product1);
 		});
 
 		describe('getSavedProducts()', function () {
@@ -79,7 +79,7 @@ describe('BasketSerivce', function(){
 
 		describe("and one more of different kind", function () {
 			beforeEach(function () {
-				BasketService.addToBasket(product2);
+				BasketService.addProduct(product2);
 			});
 
 			it('getSavedProducts() should return two products with single quantity', function () {
