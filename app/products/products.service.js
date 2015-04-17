@@ -3,21 +3,10 @@
 		.module('app.products')
 		.service('ProductsService', ProductsService);
 
-	ProductsService.$inject = ['ProductsResource'];
+	ProductsService.$inject = ['ProductsResource', '$q'];
 
-	function ProductsService(ProductsResource)
+	function ProductsService(ProductsResource, $q)
 	{
-
-//		{
-//			"id": 1,
-//			"name": "Apple",
-//			"image": "img/products/apple.jpg",
-//			"category_id": 1,
-//			"quantity": 500,
-//			"unit": "g",
-//			"price": Math.random() * 10
-//		},
-
 		var service = {
 			getByCategoryId: getByCategoryId
 		}
@@ -28,8 +17,15 @@
 
 		function getByCategoryId(categoryId) {
 
+			if (_categoriesCache.hasOwnProperty(categoryId))
+			{
+				var deferred = $q.defer();
+				deferred.resolve(_categoriesCache[categoryId]);
+				return deferred.promise;
+			}
+
 			return ProductsResource.getByCategoryId(categoryId).then(function (products) {
-				_categoriesCache.categoryId = products;
+				_categoriesCache[categoryId] = products;
 				return products;
 			});
 		}

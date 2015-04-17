@@ -11,7 +11,16 @@ describe('CategoriesController', function(){
 
 		scope = $rootScope.$new();
 
-		ctrl = $controller('CategoriesController', {$scope: scope, "CategoriesService": CategoriesService});
+		ctrl = $controller(
+			'CategoriesController',
+			{
+				$scope: scope,
+				"CategoriesService": CategoriesService,
+				"$stateParams": {
+					selectedCategoryId: 1
+				}
+			}
+		);
 	}));
 
 	it('should fetch all categories', function () {

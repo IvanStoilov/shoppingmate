@@ -58,7 +58,7 @@ describe('BasketSerivce', function(){
 
 		describe("and one more of the same kind", function () {
 			beforeEach(function () {
-				BasketService.addToBasket(product1);
+				BasketService.addProduct(product1);
 			});
 
 			describe('getSavedProducts()', function () {
