@@ -1,11 +1,13 @@
 angular.module('test.utils')
-	.service('TestUtil', TestUtil);
+	.service('TestUtils', TestUtils);
 
-TestUtil.$inject = ['$q'];
+TestUtils.$inject = ['$q'];
 
-function TestUtil($q) {
+function TestUtils($q) {
 	return {
-		resolvedPromise: resolvedPromise
+		resolvedPromise: resolvedPromise,
+		successHttpResponder: successHttpResponder,
+		errorHttpResponder: errorHttpResponder
 	};
 
 	function resolvedPromise(value) {
@@ -13,4 +15,26 @@ function TestUtil($q) {
 		deferred.resolve(value);
 		return deferred.promise;
 	}
+
+	function successHttpResponder(context) {
+		this.success = function (cb) {
+			cb.apply(context, arguments);
+			return this;
+		}
+
+		this.error = function (cb) {
+			return this;
+		}
+	};
+
+	function errorHttpResponder(context) {
+		this.success = function (cb) {
+			return this;
+		}
+
+		this.error = function (cb) {
+			cb.apply(context, arguments);
+			return this;
+		}
+	};
 };

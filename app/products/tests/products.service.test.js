@@ -14,7 +14,7 @@ describe('ProductsService', function(){
 		productsFixture = Fixtures.products;
 
 		sinon.stub(ProductsResource, 'getByCategoryId', function () {
-			return TestUtil.resolvedPromise(productsFixture);
+			return TestUtils.resolvedPromise(productsFixture);
 		});
 	}));
 

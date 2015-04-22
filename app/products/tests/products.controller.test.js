@@ -13,7 +13,7 @@ describe('ProductsController', function(){
 	beforeEach(module('test.utils'));
 	beforeEach(module('app.products'));
 
-	beforeEach(inject(function ($q, _$rootScope_, $controller, TestUtil, Fixtures, _ProductsService_, _BasketService_, _CategoriesService_) {
+	beforeEach(inject(function ($q, _$rootScope_, $controller, TestUtils, Fixtures, _ProductsService_, _BasketService_, _CategoriesService_) {
 		productsFixture = Fixtures.products;
 		categoriesFixtures = Fixtures.categories;
 
@@ -24,14 +24,14 @@ describe('ProductsController', function(){
 		$rootScope = _$rootScope_;
 
 		sinon.stub(ProductsService, "getByCategoryId", function () {
-			return TestUtil.resolvedPromise(productsFixture);
+			return TestUtils.resolvedPromise(productsFixture);
 		});
 		sinon.stub(BasketService, "addProduct", function () {
-			return TestUtil.resolvedPromise(true);
+			return TestUtils.resolvedPromise(true);
 		});
 		sinon.stub(CategoriesService, "getById", function (id) {
 			//selected category
-			return TestUtil.resolvedPromise(categoriesFixtures[id - 1]);
+			return TestUtils.resolvedPromise(categoriesFixtures[id - 1]);
 		});
 
 		scope = $rootScope.$new();

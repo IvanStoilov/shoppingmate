@@ -19,11 +19,8 @@
 		activate();
 
 		function activate() {
-			return ProductsService.getByCategoryId(selectedCategoryId)
-				.then(function (products) {
-					vm.products = products;
-					return CategoriesService.getById(selectedCategoryId);
-				}).then(function (category) {
+			return CategoriesService.getById(selectedCategoryId)
+				.then(function (category) {
 					vm.selectedCategory = category;
 					return CategoriesService.getById(category.parent_id);
 				}).then(function (parentCategory) {
@@ -41,6 +38,10 @@
 							sref: false
 						}
 					];
+
+					return ProductsService.getByCategoryId(vm.selectedCategory.id);
+				}).then (function (products) {
+					vm.products = products;
 				});
 		}
 	};

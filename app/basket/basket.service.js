@@ -36,27 +36,8 @@
 			};
 
 			BasketResource.addProduct(basketEntry)
-				.success(_.bind(onAddProductSuccess, product))
-				.error(_.bind(onAddProductError, product));
-		}
-
-		function onAddProductSuccess(newProduct, status, headers, config) {
-			var newProduct = this;
-
-			// check if the product is already in the basket
-			if (_basket[newProduct.id]) {
-				// new product is already in the list - increment its quantity
-				_basket[newProduct.id].quantity += newProduct.quantity;
-			} else {
-				// new product is not in the basket yet - add it
-				_basket[newProduct.id] = {product: newProduct, quantity: 1};
-			}
-
-			_totalPrice += newProduct.price;
-		}
-
-		function onAddProductError(data, status, headers, config) {
-			console.log('error');
+				.success(_.bind(_onAddProductSuccess, product))
+				.error(_.bind(_onAddProductError, product));
 		}
 
 		function getTotalPrice() {
@@ -72,16 +53,42 @@
 
 			if (newQuantity <= 0) {
 				BasketResource.removeProduct(id)
-					.success(_.bind(onRemoveProductSuccess, productToRemove))
-					.error(_.bind(onRemoveProductError, productToRemove));
+					.success(_.bind(_onRemoveProductSuccess, productToRemove))
+					.error(_.bind(_onRemoveProductError, productToRemove));
 			} else {
 				BasketResource.setQuantity(id, newQuantity)
-					.success(_.bind(onRemoveProductSuccess, productToRemove))
-					.error(_.bind(onRemoveProductError, productToRemove));
+					.success(_.bind(_onRemoveProductSuccess, productToRemove))
+					.error(_.bind(_onRemoveProductError, productToRemove));
 			}
 		}
 
-		function onRemoveProductSuccess() {
+		function reloadBasket() {
+			var userId = 1;
+			BasketResource.getBasket(userId).success(_adaptBasket);
+		}
+
+		//// Private methods
+
+		function _onAddProductSuccess() {
+			var newProduct = this;
+
+			// check if the product is already in the basket
+			if (_basket[newProduct.id]) {
+				// new product is already in the list - increment its quantity
+				_basket[newProduct.id].quantity += newProduct.quantity;
+			} else {
+				// new product is not in the basket yet - add it
+				_basket[newProduct.id] = {product: newProduct, quantity: newProduct.quantity};
+			}
+
+			_totalPrice += newProduct.price;
+		}
+
+		function _onAddProductError(data, status, headers, config) {
+			console.log('error');
+		}
+
+		function _onRemoveProductSuccess() {
 			var removedProduct = this;
 
 			_basket[removedProduct.id].quantity -= removedProduct.quantity;
@@ -94,13 +101,8 @@
 			_totalPrice -= removedProduct.price;
 		}
 
-		function onRemoveProductError() {
+		function _onRemoveProductError() {
 
-		}
-
-		function reloadBasket() {
-			var userId = 1;
-			BasketResource.getBasket(userId).success(_adaptBasket);
 		}
 
 		function _getQuantityInBasket(productId) {
@@ -117,6 +119,8 @@
 					product: item.product,
 					quantity: item.quantity
 				};
+
+				_totalPrice += item.product.price * item.quantity;
 			});
 		}
 
