@@ -13,11 +13,12 @@ describe('BasketService', function(){
 		product1Mock = Fixtures.products[0];
 		product2Mock = Fixtures.products[1];
 		basketFixture = Fixtures.basket;
+
+		sandbox = sinon.sandbox.create();
+
 		BasketService = _BasketService_;
 		BasketResource = _BasketResource_;
 		TestUtils = _TestUtils_;
-
-		sandbox = sinon.sandbox.create();
 	}));
 
 	afterEach(function () {
@@ -28,8 +29,8 @@ describe('BasketService', function(){
 		describe('#getSavedProducts()', function () {
 			it('should fetch products in the basket initially', function(){
 				var basket = BasketService.getSavedProducts();
-				expect(basket).to.be.an('Object');
-				expect(basket).to.deep.equal({});
+				expect(basket).to.be.an('Array');
+				expect(basket).to.deep.equal([]);
 			});
 		});
 
@@ -52,7 +53,7 @@ describe('BasketService', function(){
 		it('#getSavedProducts() should fetch products in the basket initially', function(){
 			var basket = BasketService.getSavedProducts();
 
-			expect(basket).to.be.an('Object');
+			expect(basket).to.be.an('Array');
 			expect(basket).not.to.be.empty;
 		});
 
@@ -72,9 +73,8 @@ describe('BasketService', function(){
 
 		it('#getSavedProducts() should return a product with id 1', function () {
 			var basket = BasketService.getSavedProducts();
-			expect(basket).to.be.an('Object');
-			expect(basket).to.include.property(product1Mock.id);
-			expect(basket[product1Mock.id].quantity).to.equal(product1Mock.quantity);
+			expect(basket).to.be.an('Array');
+			expect(basket[0].quantity).to.equal(product1Mock.quantity);
 		});
 
 		it('#getTotalPrice() should be updated', function () {
@@ -94,9 +94,9 @@ describe('BasketService', function(){
 
 		it('#getSavedProducts() should return a product with double quantity', function () {
 			var basket = BasketService.getSavedProducts();
-			expect(basket).to.be.an('Object');
-			expect(basket).to.include.property(product1Mock.id);
-			expect(basket[product1Mock.id].quantity).to.equal(2 * product1Mock.quantity);
+			expect(basket).to.be.an('Array');
+			expect(basket).to.have.length(1);
+			expect(basket[0].quantity).to.equal(2 * product1Mock.quantity);
 		});
 
 		it('#getTotalPrice() should be doubled', function () {
@@ -116,11 +116,9 @@ describe('BasketService', function(){
 
 		it('#getSavedProducts() should return two products with single quantity', function () {
 			var basket = BasketService.getSavedProducts();
-			expect(basket).to.be.an('Object');
-			expect(basket).to.include.property(product1Mock.id);
-			expect(basket).to.include.property(product2Mock.id);
-			expect(basket[product1Mock.id].quantity).to.equal(product1Mock.quantity);
-			expect(basket[product2Mock.id].quantity).to.equal(product2Mock.quantity);
+			expect(basket).to.be.an('Array');
+			expect(basket[0].quantity).to.equal(product1Mock.quantity);
+			expect(basket[1].quantity).to.equal(product2Mock.quantity);
 		});
 
 		it('#getTotalPrice() should be summed', function () {

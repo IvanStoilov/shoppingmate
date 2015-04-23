@@ -7,7 +7,7 @@
 
 	function BasketService(BasketResource)
 	{
-		var _basket = {};
+		var _basket = [];
 		var _totalPrice = 0;
 
 		var service = {
@@ -49,7 +49,7 @@
 			var id = productToRemove.id + "_" + userId;
 
 			// check if we have to remove the product or update it's quantity
-			var newQuantity = _basket[productToRemove.id].quantity - productToRemove.quantity;
+			var newQuantity = _getQuantityInBasket(productToRemove.id) - productToRemove.quantity;
 
 			if (newQuantity <= 0) {
 				BasketResource.removeProduct(id)
@@ -71,17 +71,16 @@
 
 		function _onAddProductSuccess() {
 			var newProduct = this;
+			var quantityInBasket = _getQuantityInBasket(newProduct.id);
 
 			// check if the product is already in the basket
-			if (_basket[newProduct.id]) {
+			if (quantityInBasket > 0) {
 				// new product is already in the list - increment its quantity
-				_basket[newProduct.id].quantity += newProduct.quantity;
+				_updateQuantityInBasket(newProduct.id, newProduct.quantity, newProduct.price);
 			} else {
 				// new product is not in the basket yet - add it
-				_basket[newProduct.id] = {product: newProduct, quantity: newProduct.quantity};
+				_pushToBasket(newProduct, newProduct.quantity);
 			}
-
-			_totalPrice += newProduct.price;
 		}
 
 		function _onAddProductError(data, status, headers, config) {
@@ -91,38 +90,60 @@
 		function _onRemoveProductSuccess() {
 			var removedProduct = this;
 
-			_basket[removedProduct.id].quantity -= removedProduct.quantity;
+			var quantityInBasket = _getQuantityInBasket(removedProduct.id);
 
-			if (_basket[removedProduct.id].quantity <= 0) {
-				// if removing the last entry - remove the product from the basket
-				delete _basket[removedProduct.id];
-			}
-
-			_totalPrice -= removedProduct.price;
+			_updateQuantityInBasket(removedProduct.id, -removedProduct.quantity, -removedProduct.price);
 		}
 
 		function _onRemoveProductError() {
 
 		}
 
+		/**
+		 * Returns the quantity of the product in the basket
+		 *
+		 * @param productId
+		 * @returns int
+		 * @private
+		 */
 		function _getQuantityInBasket(productId) {
-			if (_basket[productId]) {
-				return _basket[productId].quantity;
+			var item = _.find(_basket, function (item) {return item.id == productId});
+
+			if (item) {
+				return item.quantity;
 			}
 
 			return 0;
 		}
 
 		function _adaptBasket(products) {
-			_.each (products, function (item) {
-				_basket[item.product_id] = {
-					product: item.product,
-					quantity: item.quantity
-				};
-
-				_totalPrice += item.product.price * item.quantity;
+			_.each(products, function (item) {
+				_pushToBasket(item.product, item.quantity);
 			});
 		}
 
+		function _pushToBasket(product, quantity) {
+			_basket.push({
+				product: product,
+				quantity: quantity,
+				id: product.id
+			});
+
+			_totalPrice += product.price;
+		}
+
+		function _updateQuantityInBasket(productId, quantityDelta, priceDelta) {
+			var item = _.find(_basket, function (item) {return item.id = productId});
+
+			if (item) {
+				item.quantity += quantityDelta;
+				_totalPrice += priceDelta;
+
+				if (item.quantity <= 0) {
+					// removing the last entry - remove the product from the basket
+					delete item;
+				}
+			}
+		}
 	}
 })();
