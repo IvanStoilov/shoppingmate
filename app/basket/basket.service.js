@@ -1,4 +1,6 @@
 (function () {
+	'use strict';
+
 	angular
 		.module('app.basket')
 		.service('BasketService', BasketService);
@@ -90,8 +92,6 @@
 		function _onRemoveProductSuccess() {
 			var removedProduct = this;
 
-			var quantityInBasket = _getQuantityInBasket(removedProduct.id);
-
 			_updateQuantityInBasket(removedProduct.id, -removedProduct.quantity, -removedProduct.price);
 		}
 
@@ -129,19 +129,20 @@
 				id: product.id
 			});
 
-			_totalPrice += product.price;
+			_totalPrice += product.price * (quantity / product.quantity);
 		}
 
 		function _updateQuantityInBasket(productId, quantityDelta, priceDelta) {
-			var item = _.find(_basket, function (item) {return item.id = productId});
+			var item = _.find(_basket, function (item) {return item.id == productId});
 
 			if (item) {
 				item.quantity += quantityDelta;
-				_totalPrice += priceDelta;
+
+				_totalPrice = Math.round(100 * (_totalPrice + priceDelta)) / 100;
 
 				if (item.quantity <= 0) {
 					// removing the last entry - remove the product from the basket
-					delete item;
+					_basket = _.filter(_basket, function (item) {return item.id !== productId});
 				}
 			}
 		}

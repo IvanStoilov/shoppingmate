@@ -51,14 +51,56 @@ describe('BasketService', function(){
 		}));
 
 		it('#getSavedProducts() should fetch products in the basket initially', function(){
-			var basket = BasketService.getSavedProducts();
-
-			expect(basket).to.be.an('Array');
-			expect(basket).not.to.be.empty;
+			expect(BasketService.getSavedProducts()).to.be.an('Array').and.not.to.be.empty;
 		});
 
 		it('#getTotalPrice() should be greater than 0 initially', function () {
-			expect(BasketService.getTotalPrice()).to.be.above(0);
+			expect(BasketService.getTotalPrice()).to.equal(product1Mock.price * 2 + product2Mock.price);
+		});
+	});
+
+	describe('after removing', function () {
+		beforeEach(inject(function ($httpBackend) {
+			$httpBackend.whenGET('http://example.com/api/users/1/basket?filter=%7B%22include%22%3A%5B%22product%22%5D%7D').respond(basketFixture);
+
+			BasketService.reloadBasket();
+
+			$httpBackend.flush();
+
+			sinon.stub(BasketResource, 'removeProduct', function () {
+				return new TestUtils.successHttpResponder();
+			});
+			sinon.stub(BasketResource, 'setQuantity', function () {
+				return new TestUtils.successHttpResponder();
+			});
+		}));
+
+		describe('the last product of a kind', function () {
+			beforeEach(function () {
+				BasketService.removeProduct(product2Mock);
+			})
+
+			it('should be removed from the basket', function () {
+				expect(BasketService.getSavedProducts()).to.be.an('Array').and.have.length(1);
+			});
+
+			it('the total price should be decreased', function () {
+				expect(BasketService.getTotalPrice()).to.equal(product1Mock.price * 2);
+			});
+		});
+
+		describe('a product that is added multiple times', function () {
+			beforeEach(function () {
+				BasketService.removeProduct(product1Mock);
+			})
+
+			it('should still be in the basket', function () {
+				expect(BasketService.getSavedProducts()).to.be.an('Array').and.have.length(2);
+			});
+
+			it('the total price should be decreased', function () {
+				expect(BasketService.getTotalPrice()).to.equal(product1Mock.price + product2Mock.price);
+			});
 		});
 	});
 

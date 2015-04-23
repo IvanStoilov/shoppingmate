@@ -15,7 +15,7 @@
 					id: 2,
 					name: "Melon",
 					image: "",
-					price: 2.79,
+					price: 2.75,
 					quantity: 1,
 					unit: "st",
 					category_id: 3
@@ -51,7 +51,7 @@
 			],
 			basket: [
 				{
-					quantity: 2,
+					quantity: 1000,
 					product_id: 1,
 					user_id: 1,
 					product: {
@@ -72,7 +72,7 @@
 						id: 2,
 						name: "Melon",
 						image: "",
-						price: 0.89,
+						price: 2.75,
 						quantity: 1,
 						unit: "st",
 						category_id: 3
