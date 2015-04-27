@@ -11,13 +11,15 @@
 	{
 		var _basket = [];
 		var _totalPrice = 0;
+		var _numProductsInBasket = 0;
 
 		var service = {
 			getSavedProducts: getSavedProducts,
 			addProduct: addProduct,
 			getTotalPrice: getTotalPrice,
 			removeProduct: removeProduct,
-			reloadBasket: reloadBasket
+			reloadBasket: reloadBasket,
+			getNumberOfProducts: getNumberOfProducts
 		};
 
 		return service;
@@ -37,7 +39,7 @@
 				quantity: quantityInBasket + product.quantity
 			};
 
-			BasketResource.addProduct(basketEntry)
+			return BasketResource.addProduct(basketEntry)
 				.success(_.bind(_onAddProductSuccess, product))
 				.error(_.bind(_onAddProductError, product));
 		}
@@ -53,36 +55,31 @@
 			// check if we have to remove the product or update it's quantity
 			var newQuantity = _getQuantityInBasket(productToRemove.id) - productToRemove.quantity;
 
+			var promise;
 			if (newQuantity <= 0) {
-				BasketResource.removeProduct(id)
-					.success(_.bind(_onRemoveProductSuccess, productToRemove))
-					.error(_.bind(_onRemoveProductError, productToRemove));
+				promise = BasketResource.removeProduct(id);
 			} else {
-				BasketResource.setQuantity(id, newQuantity)
-					.success(_.bind(_onRemoveProductSuccess, productToRemove))
-					.error(_.bind(_onRemoveProductError, productToRemove));
+				promise = BasketResource.setQuantity(id, newQuantity);
 			}
+
+			return promise
+				.success(_.bind(_onRemoveProductSuccess, productToRemove))
+				.error(_.bind(_onRemoveProductError, productToRemove));
 		}
 
 		function reloadBasket() {
 			var userId = 1;
-			BasketResource.getBasket(userId).success(_adaptBasket);
+			BasketResource.getBasket(userId).success(_onBasketArrived);
+		}
+
+		function getNumberOfProducts() {
+			return _numProductsInBasket;
 		}
 
 		//// Private methods
 
 		function _onAddProductSuccess() {
-			var newProduct = this;
-			var quantityInBasket = _getQuantityInBasket(newProduct.id);
-
-			// check if the product is already in the basket
-			if (quantityInBasket > 0) {
-				// new product is already in the list - increment its quantity
-				_updateQuantityInBasket(newProduct.id, newProduct.quantity, newProduct.price);
-			} else {
-				// new product is not in the basket yet - add it
-				_pushToBasket(newProduct, newProduct.quantity);
-			}
+			return _updateQuantityInBasket(this, true);
 		}
 
 		function _onAddProductError(data, status, headers, config) {
@@ -90,9 +87,7 @@
 		}
 
 		function _onRemoveProductSuccess() {
-			var removedProduct = this;
-
-			_updateQuantityInBasket(removedProduct.id, -removedProduct.quantity, -removedProduct.price);
+			return _updateQuantityInBasket(this, false);
 		}
 
 		function _onRemoveProductError() {
@@ -116,35 +111,52 @@
 			return 0;
 		}
 
-		function _adaptBasket(products) {
+		function _onBasketArrived(products) {
+			_basket = [];
+			_totalPrice = 0;
+			_numProductsInBasket = 0;
+
 			_.each(products, function (item) {
 				_pushToBasket(item.product, item.quantity);
 			});
 		}
 
 		function _pushToBasket(product, quantity) {
+			_totalPrice += product.price * (quantity / product.quantity);
+			_numProductsInBasket += 1;
 			_basket.push({
 				product: product,
 				quantity: quantity,
 				id: product.id
 			});
-
-			_totalPrice += product.price * (quantity / product.quantity);
 		}
 
-		function _updateQuantityInBasket(productId, quantityDelta, priceDelta) {
-			var item = _.find(_basket, function (item) {return item.id == productId});
+		function _updateQuantityInBasket(updatedProduct, isAdding) {
+			var item = _.find(_basket, function (item) {return item.id == updatedProduct.id});
 
 			if (item) {
-				item.quantity += quantityDelta;
+				item.quantity += updatedProduct.quantity * (isAdding ? 1 : -1);
 
-				_totalPrice = Math.round(100 * (_totalPrice + priceDelta)) / 100;
+				// alternators change every time a product is added to/removed from the basket, except the first time
+				if (isAdding) {
+					item.addedClassAlternator = !item.addedClassAlternator;
+				} else {
+					item.removedClassAlternator = !item.removedClassAlternator;
+				}
+
+				_numProductsInBasket +=
+
+				_totalPrice = Math.round(100 * (_totalPrice + updatedProduct.price * (isAdding ? 1 : -1))) / 100;
 
 				if (item.quantity <= 0) {
 					// removing the last entry - remove the product from the basket
-					_basket = _.filter(_basket, function (item) {return item.id !== productId});
+					_basket = _.filter(_basket, function (item) {return item.id !== updatedProduct.id});
 				}
+			} else {
+				_pushToBasket(updatedProduct, updatedProduct.quantity);
 			}
+
+			return updatedProduct;
 		}
 	}
 })();

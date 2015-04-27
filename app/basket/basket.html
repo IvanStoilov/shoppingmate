@@ -1,6 +1,7 @@
 <div class="basket">
 	<h3>Shopping List</h3>
-	<div class="row basket-item" ng-class="{'last': $last}" ng-repeat="entry in basket.products track by $index">
+	<div class="row basket-item animated" ng-class="{'last': $last, 'product-added': entry.addedClassAlternator, 'product-removed': entry.removedClassAlternator, }" ng-repeat="entry in basket.products">
+		{{entry.quantityChanged}}
 		<div class="icon col-xs-1">
 			<img height="32" ng-src="{{ entry.product.image }}" alt=""/>
 		</div>

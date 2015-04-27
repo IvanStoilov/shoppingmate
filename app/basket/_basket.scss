@@ -1,3 +1,5 @@
+$animationSpeed: 0.35s;
+
 .basket {
 	padding: 10px;
 
@@ -21,6 +23,34 @@
 		}
 
 		.quantity {
+		}
+
+		&.ng-enter {
+			-webkit-animation: fadeInLeft $animationSpeed;
+			-moz-animation: fadeInLeft $animationSpeed;
+			-o-animation: fadeInLeft $animationSpeed;
+			animation: fadeInLeft $animationSpeed;
+		}
+
+		&.ng-leave {
+			-webkit-animation: fadeOutRight $animationSpeed;
+			-moz-animation: fadeOutRight $animationSpeed;
+			-o-animation: fadeOutRight $animationSpeed;
+			animation: fadeOutRight $animationSpeed;
+		}
+
+		&.product-added-add, &.product-added-remove {
+			-webkit-animation: pulse $animationSpeed;
+			-moz-animation: pulse $animationSpeed;
+			-o-animation: pulse $animationSpeed;
+			animation: pulse $animationSpeed;
+		}
+
+		&.product-removed-add, &.product-removed-remove {
+			-webkit-animation: flash $animationSpeed;
+			-moz-animation: flash $animationSpeed;
+			-o-animation: flash $animationSpeed;
+			animation: flash $animationSpeed;
 		}
 	}
 
