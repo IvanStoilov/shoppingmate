@@ -5,10 +5,11 @@
 		.module('app.main-menu')
 		.controller('MainMenuController', MainMenuController);
 
-	MainMenuController.$inject = [];
+	MainMenuController.$inject = ['AuthService'];
 
-	function MainMenuController() {
+	function MainMenuController(AuthService) {
 		var vm = this;
+		vm.logout = AuthService.logout;
 		vm.items = {
 			"choose-products": 1,
 			"basket": 1
@@ -17,6 +18,9 @@
 
 		function activate()
 		{
+			vm.user = {
+				name: AuthService.getUser().id
+			}
 		}
 	}
 })();

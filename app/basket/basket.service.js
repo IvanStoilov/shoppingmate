@@ -5,9 +5,9 @@
 		.module('app.basket')
 		.service('BasketService', BasketService);
 
-	BasketService.$inject = ['BasketResource'];
+	BasketService.$inject = ['BasketResource', 'AuthService'];
 
-	function BasketService(BasketResource)
+	function BasketService(BasketResource, AuthService)
 	{
 		var _basket = [];
 		var _totalPrice = 0;
@@ -31,11 +31,10 @@
 		function addProduct(product) {
 			var quantityInBasket = _getQuantityInBasket(product.id);
 
-			var userId = 1;
 			var basketEntry = {
 				id: product.id + "_" + userId,
 				product_id: product.id,
-				user_id: userId,
+				user_id: AuthService.getUserId(),
 				quantity: quantityInBasket + product.quantity
 			};
 
@@ -49,7 +48,7 @@
 		}
 
 		function removeProduct(productToRemove) {
-			var userId = 1;
+			var userId = AuthService.getUserId();
 			var id = productToRemove.id + "_" + userId;
 
 			// check if we have to remove the product or update it's quantity
@@ -68,7 +67,7 @@
 		}
 
 		function reloadBasket() {
-			var userId = 1;
+			var userId = AuthService.getUserId();
 			BasketResource.getBasket(userId).success(_onBasketArrived);
 		}
 

@@ -1,5 +1,6 @@
 <div class="container">
 	<nav class="navbar navbar-default" ng-include="'app/main-menu/main-menu.html'"></nav>
+	<div ui-view="modal"></div>
 	<div class="row">
 		<div class="col-sm-8 col-xs-12" ng-class="{'hidden-xs': isBasketOpen}" ui-view="content">
 		</div>
