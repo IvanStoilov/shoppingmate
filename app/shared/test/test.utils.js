@@ -6,8 +6,8 @@ TestUtils.$inject = ['$q'];
 function TestUtils($q) {
 	return {
 		resolvedPromise: resolvedPromise,
-		successHttpResponder: successHttpResponder,
-		errorHttpResponder: errorHttpResponder
+		SuccessHttpResponder: SuccessHttpResponder,
+		ErrorHttpResponder: ErrorHttpResponder
 	};
 
 	function resolvedPromise(value) {
@@ -16,7 +16,7 @@ function TestUtils($q) {
 		return deferred.promise;
 	}
 
-	function successHttpResponder(context) {
+	function SuccessHttpResponder(context) {
 		this.success = function (cb) {
 			cb.apply(context, arguments);
 			return this;
@@ -27,7 +27,7 @@ function TestUtils($q) {
 		}
 	};
 
-	function errorHttpResponder(context) {
+	function ErrorHttpResponder(context) {
 		this.success = function (cb) {
 			return this;
 		}

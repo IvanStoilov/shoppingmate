@@ -68,10 +68,10 @@ describe('BasketService', function(){
 			$httpBackend.flush();
 
 			sinon.stub(BasketResource, 'removeProduct', function () {
-				return new TestUtils.successHttpResponder();
+				return new TestUtils.SuccessHttpResponder();
 			});
 			sinon.stub(BasketResource, 'setQuantity', function () {
-				return new TestUtils.successHttpResponder();
+				return new TestUtils.SuccessHttpResponder();
 			});
 		}));
 
@@ -107,7 +107,7 @@ describe('BasketService', function(){
 	describe("after adding one product", function () {
 		beforeEach(function () {
 			sinon.stub(BasketResource, 'addProduct', function () {
-				return new TestUtils.successHttpResponder();
+				return new TestUtils.SuccessHttpResponder();
 			});
 
 			BasketService.addProduct(product1Mock);

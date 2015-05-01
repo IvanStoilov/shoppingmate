@@ -20,10 +20,11 @@
 	</div>
 	<div ng-show="basket.products.length > 0" class="row bottom-line">
 		<div class="col-xs-6">
-			Total:
+			<a class="btn">Save shopping list</a>
 		</div>
 		<div class="total-sum col-xs-6">
 			<sm-price price="{{ basket.totalPrice }}"></sm-price>
+			<a class="btn btn-success"><i class="glyphicon glyphicon-check"></i> Checkout</a>
 		</div>
 	</div>
 </div>
